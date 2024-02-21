@@ -1,50 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}TrainingReimbursement{% endblock %}
+{% block title %}Dossier de remboursement de {{ training_reimbursement.trainee }}{% endblock %}
 
 {% block body %}
-    <h1>TrainingReimbursement</h1>
+    <h1>Dossier de remboursement de {{ training_reimbursement.trainee }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ training_reimbursement.id }}</td>
-            </tr>
-            <tr>
-                <th>Trainee</th>
-                <td>{{ training_reimbursement.trainee }}</td>
-            </tr>
-            <tr>
-                <th>TrainingCompletionCertificate</th>
-                <td>{{ training_reimbursement.trainingCompletionCertificate }}</td>
-            </tr>
-            <tr>
-                <th>TrainingExpenses</th>
-                <td>{{ training_reimbursement.trainingExpenses }}</td>
-            </tr>
-            <tr>
-                <th>MileageExpenses</th>
-                <td>{{ training_reimbursement.mileageExpenses }}</td>
-            </tr>
-            <tr>
-                <th>PaymentDetails</th>
-                <td>{{ training_reimbursement.paymentDetails }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ training_reimbursement.createdAt ? training_reimbursement.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ training_reimbursement.updatedAt ? training_reimbursement.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+    {{ include('training_reimbursement/_show.html.twig') }}
 
-    <a href="{{ path('app_training_reimbursement_index') }}">back to list</a>
 
-    <a href="{{ path('app_training_reimbursement_edit', {'token': training_reimbursement.token}) }}">edit</a>
-
-    {{ include('training_reimbursement/_delete_form.html.twig') }}
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_training_reimbursement_index') }}">retour à la liste</a>
+        {{ include('training_reimbursement/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}

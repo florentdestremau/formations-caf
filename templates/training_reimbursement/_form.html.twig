@@ -1,4 +1,10 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="card">
+    {{ form_start(form) }}
+    <div>
+        {{ form_widget(form) }}
+    </div>
+    <footer class="is-right" style="margin-top: 1rem">
+        <button class="button primary">{{ button_label|default('Créer un dossier') }}</button>
+    </footer>
+    {{ form_end(form) }}
+</div>
