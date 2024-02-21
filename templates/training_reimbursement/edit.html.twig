@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit TrainingReimbursement{% endblock %}
+
+{% block body %}
+    <h1>Edit TrainingReimbursement</h1>
+
+    {{ include('training_reimbursement/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_training_reimbursement_index') }}">back to list</a>
+
+    {{ include('training_reimbursement/_delete_form.html.twig') }}
+{% endblock %}

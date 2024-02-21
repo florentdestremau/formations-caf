@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle demande de remboursement{% endblock %}
+
+{% block body %}
+    <h1>Nouvelle demande de remboursement</h1>
+
+    {{ include('training_reimbursement/_form.html.twig') }}
+
+    <a href="{{ path('app_training_reimbursement_index') }}">back to list</a>
+{% endblock %}

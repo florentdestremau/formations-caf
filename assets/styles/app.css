@@ -1,3 +1,12 @@
+:root {
+    --color-primary: #007bff;
+
+}
 body {
-    background-color: skyblue;
+    max-width: 800px;
+    margin: auto;
+}
+
+section + section {
+    margin-top: 1rem;
 }

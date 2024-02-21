@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TrainingReimbursement index{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_home') }}">
+        Retour à l'accueil
+    </a>
+    <h1>TrainingReimbursement index</h1>
+    <section class="">
+        {% for training_reimbursement in training_reimbursements %}
+            <div class="card">
+                <header>
+                    <h3>{{ training_reimbursement.id }} - {{ training_reimbursement.trainee }}</h3>
+                </header>
+                <div>
+                    Attestation de réussite :
+                    {% if training_reimbursement.trainingCompletionCertificate %}
+                        <a href="{{ vich_uploader_asset(training_reimbursement, 'trainingCompletionCertificateFile') }}">
+                            {{ training_reimbursement.trainingCompletionCertificate }}
+                        </a>
+                    {% else %}
+                        Aucun fichier
+                    {% endif %}
+                </div>
+                <div>
+                    <span>Fiche de frais de formation :</span>
+                    {% if training_reimbursement.trainingExpenses %}
+                        <a href="{{ vich_uploader_asset(training_reimbursement, 'trainingExpensesFile') }}">
+                            {{ training_reimbursement.trainingExpenses }}
+                        </a>
+                    {% else %}
+                        Aucun fichier
+                    {% endif %}
+                </div>
+                <div>
+                    <span>Justificatif de frais de déplacement :</span>
+                    {% if training_reimbursement.mileageExpenses %}
+                        <a href="{{ vich_uploader_asset(training_reimbursement, 'mileageExpensesFile') }}">
+                            {{ training_reimbursement.mileageExpenses }}
+                        </a>
+                    {% else %}
+                        Aucun fichier
+                    {% endif %}
+                </div>
+                <div>
+                    <span>Relevé d'identité bancaire :</span>
+                    {% if training_reimbursement.paymentDetails %}
+                        <a href="{{ vich_uploader_asset(training_reimbursement, 'paymentDetailsFile') }}">
+                            {{ training_reimbursement.paymentDetails }}
+                        </a>
+                    {% else %}
+                        Aucun fichier
+                    {% endif %}
+                </div>
+                <div>
+                    <span>Créé le :</span>
+                    {{ training_reimbursement.createdAt|date }}
+                </div>
+                <footer class="is-right">
+                    <a href="{{ path('app_training_reimbursement_show', {'id': training_reimbursement.id}) }}" class="button">show</a>
+                    <a href="{{ path('app_training_reimbursement_edit', {'id': training_reimbursement.id}) }}" class="button">edit</a>
+                </footer>
+            </div>
+        {% else %}
+            <div>
+                Aucun dossier de remboursement n'a été créé.
+            </div>
+        {% endfor %}
+
+    </section>
+
+
+    <section>
+        <a href="{{ path('app_training_reimbursement_new') }}" class="button primary">Créer un nouveau dossier de remboursement</a>
+    </section>
+{% endblock %}

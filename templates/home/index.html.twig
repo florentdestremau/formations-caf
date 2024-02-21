@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Remboursement formation CAF Annecy!{% endblock %}
+
+{% block body %}
+    <header>
+        <h1>Remboursement formation CAF Annecy</h1>
+        <p>Vous avez des questions sur le remboursement de votre formation par la CAF d'Annecy ?</p>
+        <p>Vous êtes au bon endroit !</p>
+    </header>
+
+    <section>
+        {% apply markdown_to_html %}
+        L'ensemble du cursus de formation du Club Alpin d'Annecy est présenté dans ce document :
+
+        [Guide du Parcours de Formation](https://nc.cafannecy.fr/s/Z2kLc7afZfaTwdt)
+
+        Les demandes de remboursement de formations sont à adresser par mail à l'adresse frais@cafannecy.fr
+        Les documents à fournir sont repris dans le guide du parcours de formation et sont les suivants :
+
+        - Attestation de réussite au stage ou à l'UF scanné
+        - La fiche de frais de formation
+        - La fiche pour les éventuels frais kilométriques
+        - Un RIB en format numérique pour le remboursement
+        - Une copie de la carte Grise pour les frais kilométriques
+
+        Les fiches de frais, frais de formation et frais kilomètriques sont accessibles sur la page Fiches-Tresorerie ou directement sur Nextcloud dans le dossier "Fiches Frais & Remboursements".
+        {% endapply %}
+    </section>
+
+    <section>
+        <a href="{{ path('app_training_reimbursement_new') }}" class="button primary">
+            Commencer une demande de remboursement
+        </a>
+        <a href="{{ path('app_training_reimbursement_index') }}" class="button secondary">
+            Voir les demandes de remboursement en cours
+        </a>
+    </section>
+
+    <footer></footer>
+{% endblock %}
