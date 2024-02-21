@@ -5,19 +5,79 @@ namespace App\EventListener;
 use App\Entity\TrainingReimbursement;
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener;
 use Doctrine\ORM\Event\PostPersistEventArgs;
+use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Notifier\Recipient\Recipient;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[AsEntityListener(entity: TrainingReimbursement::class)]
-final class TrainingReimbursementListener
+final readonly class TrainingReimbursementListener
 {
     public function __construct(private NotifierInterface $notifier, private UrlGeneratorInterface $urlGenerator)
     {
     }
 
     public function postPersist(TrainingReimbursement $trainingReimbursement, PostPersistEventArgs $args): void
+    {
+        $recipient = $this->sendTrainingReimbursementEmail($trainingReimbursement);
+
+        if ($trainingReimbursement->isComplete()) {
+            $this->sendTrainingReimbursementCompleteNotification($recipient, $trainingReimbursement);
+        }
+    }
+
+    public function postUpdate(TrainingReimbursement $trainingReimbursement, PostUpdateEventArgs $args): void
+    {
+        $recipient = $this->sendTrainingReimbursementUpdatedNotification($trainingReimbursement);
+
+        if ($trainingReimbursement->isComplete()) {
+            $recipient = new Recipient($trainingReimbursement->traineeEmail);
+            $this->sendTrainingReimbursementCompleteNotification($recipient, $trainingReimbursement);
+        }
+    }
+
+    /**
+     * @param Recipient $recipient
+     * @param TrainingReimbursement $trainingReimbursement
+     * @return void
+     */
+    private function sendTrainingReimbursementCompleteNotification(
+        Recipient $recipient,
+        TrainingReimbursement $trainingReimbursement,
+    ): void {
+        $traineeNotification = new Notification('Votre dossier est complet', ['email']);
+        $traineeNotification->content(
+            <<<EOM
+                Votre demande de remboursement de formation est complète. Nous allons l'examiner dans les plus brefs délais.
+                En cas de question, n'hésitez pas à nous contacter.
+            EOM,
+        );
+        $traineeNotification->importance('');
+        $this->notifier->send($traineeNotification, $recipient);
+
+        $adminNotification = new Notification('Nouveau dossier complet', ['email']);
+        $showLink = $this->urlGenerator->generate(
+            'app_training_reimbursement_show',
+            ['token' => $trainingReimbursement->token],
+            UrlGeneratorInterface::ABSOLUTE_URL,
+        );
+        $adminNotification->content(
+            <<<EOM
+                Un nouveau dossier de remboursement de formation a été créé. Vous pouvez le consulter sur ce lien:
+                
+                $showLink
+            EOM,
+        );
+        $adminNotification->importance('');
+        $this->notifier->send($adminNotification, new Recipient('admin@cafannecy.fr'));
+    }
+
+    /**
+     * @param TrainingReimbursement $trainingReimbursement
+     * @return Recipient
+     */
+    private function sendTrainingReimbursementEmail(TrainingReimbursement $trainingReimbursement): Recipient
     {
         $notification = new Notification('Votre dossier a bien été créé', ['email']);
         $link = $this->urlGenerator->generate(
@@ -38,5 +98,32 @@ final class TrainingReimbursementListener
 
         $recipient = new Recipient($trainingReimbursement->traineeEmail);
         $this->notifier->send($notification, $recipient);
+
+        return $recipient;
+    }
+
+    private function sendTrainingReimbursementUpdatedNotification(TrainingReimbursement $trainingReimbursement)
+    {
+        $notification = new Notification('Votre dossier a bien été mis à jour', ['email']);
+        $link = $this->urlGenerator->generate(
+            'app_training_reimbursement_edit',
+            ['token' => $trainingReimbursement->token],
+            UrlGeneratorInterface::ABSOLUTE_URL,
+        );
+        $notification->content(
+            <<<EOM
+            Votre demande de remboursement de formation a bien été mise à jour. Vous pouvez l'éditer à tout moment sur ce lien:
+            
+            $link
+            
+            En cas de question, n'hésitez pas à nous contacter.
+        EOM,
+        );
+        $notification->importance('');
+
+        $recipient = new Recipient($trainingReimbursement->traineeEmail);
+        $this->notifier->send($notification, $recipient);
+
+        return $recipient;
     }
 }

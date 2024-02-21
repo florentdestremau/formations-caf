@@ -61,4 +61,9 @@ class TrainingReimbursement
         $this->updatedAt = new \DateTimeImmutable();
         $this->token = bin2hex(random_bytes(12));
     }
+
+    public function isComplete(): bool
+    {
+        return $this->trainingCompletionCertificate && $this->trainingExpenses && $this->mileageExpenses && $this->paymentDetails;
+    }
 }

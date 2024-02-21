@@ -58,7 +58,7 @@
                     {{ training_reimbursement.createdAt|date }}
                 </div>
                 <footer class="is-right">
-                    <a href="{{ path('app_training_reimbursement_show', {'id': training_reimbursement.id}) }}" class="button">show</a>
+                    <a href="{{ path('app_training_reimbursement_show', {'token': training_reimbursement.token}) }}" class="button">show</a>
                     <a href="{{ path('app_training_reimbursement_edit', {'token': training_reimbursement.token}) }}" class="button">edit</a>
                 </footer>
             </article>

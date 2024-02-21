@@ -42,7 +42,7 @@ class TrainingReimbursementController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_training_reimbursement_show', methods: ['GET'])]
+    #[Route('/{token}', name: 'app_training_reimbursement_show', methods: ['GET'])]
     public function show(TrainingReimbursement $trainingReimbursement): Response
     {
         return $this->render('training_reimbursement/show.html.twig', [
