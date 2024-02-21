@@ -50,13 +50,14 @@ class TrainingReimbursementController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_training_reimbursement_edit', methods: ['GET', 'POST'])]
+    #[Route('/{token}/edit', name: 'app_training_reimbursement_edit', methods: ['GET', 'POST'])]
     public function edit(
         Request $request,
         TrainingReimbursement $trainingReimbursement,
         EntityManagerInterface $entityManager,
     ): Response {
         $form = $this->createForm(TrainingReimbursementType::class, $trainingReimbursement);
+        $trainingReimbursement->updatedAt = new \DateTimeImmutable();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -77,7 +78,7 @@ class TrainingReimbursementController extends AbstractController
         TrainingReimbursement $trainingReimbursement,
         EntityManagerInterface $entityManager,
     ): Response {
-        if ($this->isCsrfTokenValid('delete' . $trainingReimbursement->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $trainingReimbursement->id, $request->request->get('_token'))) {
             $entityManager->remove($trainingReimbursement);
             $entityManager->flush();
         }

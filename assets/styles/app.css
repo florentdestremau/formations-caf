@@ -2,11 +2,13 @@
     --color-primary: #007bff;
 
 }
+
 body {
     max-width: 800px;
     margin: auto;
 }
 
-section + section {
+section + section,
+article + article {
     margin-top: 1rem;
 }

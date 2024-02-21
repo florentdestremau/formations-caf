@@ -9,7 +9,7 @@
     <h1>TrainingReimbursement index</h1>
     <section class="">
         {% for training_reimbursement in training_reimbursements %}
-            <div class="card">
+            <article class="card">
                 <header>
                     <h3>{{ training_reimbursement.id }} - {{ training_reimbursement.trainee }}</h3>
                 </header>
@@ -59,9 +59,9 @@
                 </div>
                 <footer class="is-right">
                     <a href="{{ path('app_training_reimbursement_show', {'id': training_reimbursement.id}) }}" class="button">show</a>
-                    <a href="{{ path('app_training_reimbursement_edit', {'id': training_reimbursement.id}) }}" class="button">edit</a>
+                    <a href="{{ path('app_training_reimbursement_edit', {'token': training_reimbursement.token}) }}" class="button">edit</a>
                 </footer>
-            </div>
+            </article>
         {% else %}
             <div>
                 Aucun dossier de remboursement n'a été créé.

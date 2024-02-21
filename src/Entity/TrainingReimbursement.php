@@ -59,6 +59,6 @@ class TrainingReimbursement
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
-        $this->token = bin2hex(random_bytes(32));
+        $this->token = bin2hex(random_bytes(12));
     }
 }
