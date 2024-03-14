@@ -7,5 +7,7 @@
 
     {{ include('training_reimbursement/_form.html.twig') }}
 
-    <a href="{{ path('app_training_reimbursement_index') }}">retour à la liste</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_training_reimbursement_index') }}">voir la liste des demandes</a>
+    {% endif %}
 {% endblock %}

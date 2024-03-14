@@ -3,7 +3,8 @@
     <div>
         {{ form_widget(form) }}
     </div>
-    <footer class="is-right" style="margin-top: 1rem">
+    <footer class="is-right" style="margin-top: 1rem;">
+        <a href="{{ path('app_home') }}">annuler</a>  
         <button class="button primary">{{ button_label|default('Créer un dossier') }}</button>
     </footer>
     {{ form_end(form) }}
