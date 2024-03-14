@@ -47,7 +47,7 @@ workers:
 
 mounts:
     "/var": { source: local, source_path: var }
-    "/data.db": { source: local, source_path: data.db }
+    "/public/uploads": { source: local, source_path: public/uploads }
 
 
 
