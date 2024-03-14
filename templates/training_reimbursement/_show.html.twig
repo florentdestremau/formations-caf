@@ -2,50 +2,62 @@
     <header>
         <h3>{{ training_reimbursement.id }} - {{ training_reimbursement.trainee }}</h3>
     </header>
-    <div>
-        Attestation de réussite :
-        {% if training_reimbursement.trainingCompletionCertificate %}
-            <a href="{{ vich_uploader_asset(training_reimbursement, 'trainingCompletionCertificateFile') }}">
-                {{ training_reimbursement.trainingCompletionCertificate }}
-            </a>
-        {% else %}
-            Aucun fichier
-        {% endif %}
-    </div>
-    <div>
-        <span>Fiche de frais de formation :</span>
-        {% if training_reimbursement.trainingExpenses %}
-            <a href="{{ vich_uploader_asset(training_reimbursement, 'trainingExpensesFile') }}">
-                {{ training_reimbursement.trainingExpenses }}
-            </a>
-        {% else %}
-            Aucun fichier
-        {% endif %}
-    </div>
-    <div>
-        <span>Justificatif de frais de déplacement :</span>
-        {% if training_reimbursement.mileageExpenses %}
-            <a href="{{ vich_uploader_asset(training_reimbursement, 'mileageExpensesFile') }}">
-                {{ training_reimbursement.mileageExpenses }}
-            </a>
-        {% else %}
-            Aucun fichier
-        {% endif %}
-    </div>
-    <div>
-        <span>Relevé d'identité bancaire :</span>
-        {% if training_reimbursement.paymentDetails %}
-            <a href="{{ vich_uploader_asset(training_reimbursement, 'paymentDetailsFile') }}">
-                {{ training_reimbursement.paymentDetails }}
-            </a>
-        {% else %}
-            Aucun fichier
-        {% endif %}
-    </div>
-    <div>
-        <span>Créé le :</span>
-        {{ training_reimbursement.createdAt|date }}
-    </div>
+    <table>
+        <tbody>
+        <tr>
+            <td>Attestation de réussite :</td>
+            <td>
+                {% if training_reimbursement.trainingCompletionCertificate %}
+                    <a href="{{ vich_uploader_asset(training_reimbursement, 'trainingCompletionCertificateFile') }}">
+                        {{ training_reimbursement.trainingCompletionCertificate }}
+                    </a>
+                {% else %}
+                    Aucun fichier
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>Fiche de frais de formation :</td>
+            <td>
+                {% if training_reimbursement.trainingExpenses %}
+                    <a href="{{ vich_uploader_asset(training_reimbursement, 'trainingExpensesFile') }}">
+                        {{ training_reimbursement.trainingExpenses }}
+                    </a>
+                {% else %}
+                    Aucun fichier
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>Justificatif de frais de déplacement :</td>
+            <td>
+                {% if training_reimbursement.mileageExpenses %}
+                    <a href="{{ vich_uploader_asset(training_reimbursement, 'mileageExpensesFile') }}">
+                        {{ training_reimbursement.mileageExpenses }}
+                    </a>
+                {% else %}
+                    Aucun fichier
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>Relevé d'identité bancaire :</td>
+            <td>
+                {% if training_reimbursement.paymentDetails %}
+                    <a href="{{ vich_uploader_asset(training_reimbursement, 'paymentDetailsFile') }}">
+                        {{ training_reimbursement.paymentDetails }}
+                    </a>
+                {% else %}
+                    Aucun fichier
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>Créé le :</td>
+            <td>{{ training_reimbursement.createdAt|date }}</td>
+        </tr>
+        </tbody>
+    </table>
     <footer class="is-right">
         {% if app.current_route != 'app_training_reimbursement_show' %}
             <a href="{{ path('app_training_reimbursement_show', {'token': training_reimbursement.token}) }}" class="button primary">voir</a>
