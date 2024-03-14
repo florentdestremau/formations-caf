@@ -9,7 +9,11 @@ runtime:
         - sodium
         - iconv
         - ctype
+        - xsl
 
+dependencies:
+    php:
+        composer/composer: "^2"
 
 variables:
     php:
