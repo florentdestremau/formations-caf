@@ -27,4 +27,20 @@ class TrainingReimbursementControllerTest extends WebTestCase
         $client->request('GET', '/training-reimbursement');
         $this->assertResponseIsSuccessful();
     }
+
+    public function testNew()
+    {
+        $client = static::createClient();
+        $client->request('GET', '/training-reimbursement/new');
+        $this->assertResponseIsSuccessful();
+
+        $client->submitForm('Créer un dossier', [
+            'training_reimbursement[trainee]' => 'Jean-Paul Dupont',
+            'training_reimbursement[traineeEmail]' => 'jpd@exemple.com',
+        ]);
+
+        $this->assertResponseRedirects('/');
+        $client->followRedirect();
+        $this->assertSelectorTextContains('div.alert', '× Votre dossier a bien été créé');
+    }
 }

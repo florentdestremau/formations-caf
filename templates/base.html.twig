@@ -16,7 +16,7 @@
 <body>
 {% for type, flashes in app.flashes %}
     {% for flash in flashes %}
-        <div class="card bg-{{ type }}">
+        <div class="card alert bg-{{ type }}">
             <span style="float: right;cursor:pointer;" role="button" onclick="this.parentNode.remove();">×</span>
             {{ flash }}
         </div>
