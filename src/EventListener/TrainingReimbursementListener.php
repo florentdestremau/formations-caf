@@ -79,7 +79,7 @@ final readonly class TrainingReimbursementListener
      */
     private function sendTrainingReimbursementEmail(TrainingReimbursement $trainingReimbursement): Recipient
     {
-        $notification = new Notification('Votre dossier a bien été créé', ['email']);
+        $notification = new Notification('Votre dossier a bien été créé', ['email', 'browser']);
         $link = $this->urlGenerator->generate(
             'app_training_reimbursement_edit',
             ['token' => $trainingReimbursement->token],
@@ -94,7 +94,7 @@ final readonly class TrainingReimbursementListener
             En cas de question, n'hésitez pas à nous contacter.
         EOM,
         );
-        $notification->importance('');
+        $notification->importance(Notification::IMPORTANCE_LOW);
 
         $recipient = new Recipient($trainingReimbursement->traineeEmail);
         $this->notifier->send($notification, $recipient);

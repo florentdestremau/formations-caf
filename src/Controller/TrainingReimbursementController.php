@@ -35,7 +35,11 @@ class TrainingReimbursementController extends AbstractController
             $entityManager->persist($trainingReimbursement);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_training_reimbursement_index', [], Response::HTTP_SEE_OTHER);
+            if ($this->isGranted('ROLE_ADMIN')) {
+                return $this->redirectToRoute('app_training_reimbursement_index');
+            }
+
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('training_reimbursement/new.html.twig', [
