@@ -20,32 +20,28 @@ final readonly class TrainingReimbursementListener
 
     public function postPersist(TrainingReimbursement $trainingReimbursement, PostPersistEventArgs $args): void
     {
-        $recipient = $this->sendTrainingReimbursementEmail($trainingReimbursement);
+        $this->sendTrainingReimbursementEmail($trainingReimbursement);
 
         if ($trainingReimbursement->isComplete()) {
-            $this->sendTrainingReimbursementCompleteNotification($recipient, $trainingReimbursement);
+            $this->sendTrainingReimbursementCompleteNotification($trainingReimbursement);
         }
     }
 
     public function postUpdate(TrainingReimbursement $trainingReimbursement, PostUpdateEventArgs $args): void
     {
-        $recipient = $this->sendTrainingReimbursementUpdatedNotification($trainingReimbursement);
+        $this->sendTrainingReimbursementUpdatedNotification($trainingReimbursement);
 
         if ($trainingReimbursement->isComplete()) {
-            $recipient = new Recipient($trainingReimbursement->traineeEmail);
-            $this->sendTrainingReimbursementCompleteNotification($recipient, $trainingReimbursement);
+            $this->sendTrainingReimbursementCompleteNotification($trainingReimbursement);
         }
     }
 
     /**
-     * @param Recipient $recipient
      * @param TrainingReimbursement $trainingReimbursement
      * @return void
      */
-    private function sendTrainingReimbursementCompleteNotification(
-        Recipient $recipient,
-        TrainingReimbursement $trainingReimbursement,
-    ): void {
+    private function sendTrainingReimbursementCompleteNotification(TrainingReimbursement $trainingReimbursement): void {
+        $recipient = new Recipient($trainingReimbursement->traineeEmail);
         $traineeNotification = new Notification('Votre dossier est complet', ['email']);
         $traineeNotification->content(
             <<<EOM
@@ -77,7 +73,7 @@ final readonly class TrainingReimbursementListener
      * @param TrainingReimbursement $trainingReimbursement
      * @return Recipient
      */
-    private function sendTrainingReimbursementEmail(TrainingReimbursement $trainingReimbursement): Recipient
+    private function sendTrainingReimbursementEmail(TrainingReimbursement $trainingReimbursement): void
     {
         $notification = new Notification('Votre dossier a bien été créé', ['email', 'browser']);
         $link = $this->urlGenerator->generate(
@@ -98,11 +94,9 @@ final readonly class TrainingReimbursementListener
 
         $recipient = new Recipient($trainingReimbursement->traineeEmail);
         $this->notifier->send($notification, $recipient);
-
-        return $recipient;
     }
 
-    private function sendTrainingReimbursementUpdatedNotification(TrainingReimbursement $trainingReimbursement)
+    private function sendTrainingReimbursementUpdatedNotification(TrainingReimbursement $trainingReimbursement): void
     {
         $notification = new Notification('Votre dossier a bien été mis à jour', ['email']);
         $link = $this->urlGenerator->generate(
@@ -123,7 +117,5 @@ final readonly class TrainingReimbursementListener
 
         $recipient = new Recipient($trainingReimbursement->traineeEmail);
         $this->notifier->send($notification, $recipient);
-
-        return $recipient;
     }
 }
