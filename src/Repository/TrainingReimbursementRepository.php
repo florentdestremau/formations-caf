@@ -9,8 +9,8 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<TrainingReimbursement>
  *
- * @method TrainingReimbursement|null find($id, $lockMode = null, $lockVersion = null)
- * @method TrainingReimbursement|null findOneBy(array $criteria, array $orderBy = null)
+ * @method null|TrainingReimbursement find($id, $lockMode = null, $lockVersion = null)
+ * @method null|TrainingReimbursement findOneBy(array $criteria, array $orderBy = null)
  * @method TrainingReimbursement[]    findAll()
  * @method TrainingReimbursement[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */

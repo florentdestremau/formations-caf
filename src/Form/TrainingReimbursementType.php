@@ -22,7 +22,8 @@ class TrainingReimbursementType extends AbstractType
             )
             ->add('trainingExpensesFile', VichFileType::class, ['required' => false, 'label' => 'Frais de formation'])
             ->add('mileageExpensesFile', VichFileType::class, ['required' => false, 'label' => 'Frais de déplacement'])
-            ->add('paymentDetailsFile', VichFileType::class, ['required' => false, 'label' => 'Détails de paiement']);
+            ->add('paymentDetailsFile', VichFileType::class, ['required' => false, 'label' => 'Détails de paiement'])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -6,9 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\InMemoryUser;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class TrainingReimbursementControllerTest extends WebTestCase
 {
-
     public function testIndex()
     {
         $client = static::createClient();
@@ -20,7 +24,7 @@ class TrainingReimbursementControllerTest extends WebTestCase
         $password = 'test';
 
         // Encode the credentials
-        $encodedCredentials = base64_encode("$username:$password");
+        $encodedCredentials = base64_encode("{$username}:{$password}");
         // Set the Authorization header for basic auth
         $client->setServerParameter('HTTP_AUTHORIZATION', 'Basic '.$encodedCredentials);
 

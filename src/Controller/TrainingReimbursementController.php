@@ -44,7 +44,7 @@ class TrainingReimbursementController extends AbstractController
 
         return $this->render('training_reimbursement/new.html.twig', [
             'training_reimbursement' => $trainingReimbursement,
-            'form'                   => $form,
+            'form' => $form,
         ]);
     }
 
@@ -82,7 +82,7 @@ class TrainingReimbursementController extends AbstractController
 
         return $this->render('training_reimbursement/edit.html.twig', [
             'training_reimbursement' => $trainingReimbursement,
-            'form'                   => $form,
+            'form' => $form,
         ]);
     }
 
@@ -93,7 +93,7 @@ class TrainingReimbursementController extends AbstractController
         TrainingReimbursement $trainingReimbursement,
         EntityManagerInterface $entityManager,
     ): Response {
-        if ($this->isCsrfTokenValid('delete' . $trainingReimbursement->id, $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$trainingReimbursement->id, $request->request->get('_token'))) {
             $entityManager->remove($trainingReimbursement);
             $entityManager->flush();
         }

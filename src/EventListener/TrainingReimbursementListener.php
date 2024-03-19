@@ -14,9 +14,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 #[AsEntityListener(entity: TrainingReimbursement::class)]
 final readonly class TrainingReimbursementListener
 {
-    public function __construct(private NotifierInterface $notifier, private UrlGeneratorInterface $urlGenerator)
-    {
-    }
+    public function __construct(private NotifierInterface $notifier, private UrlGeneratorInterface $urlGenerator) {}
 
     public function postPersist(TrainingReimbursement $trainingReimbursement, PostPersistEventArgs $args): void
     {
@@ -36,15 +34,12 @@ final readonly class TrainingReimbursementListener
         }
     }
 
-    /**
-     * @param TrainingReimbursement $trainingReimbursement
-     * @return void
-     */
-    private function sendTrainingReimbursementCompleteNotification(TrainingReimbursement $trainingReimbursement): void {
+    private function sendTrainingReimbursementCompleteNotification(TrainingReimbursement $trainingReimbursement): void
+    {
         $recipient = new Recipient($trainingReimbursement->traineeEmail);
         $traineeNotification = new Notification('Votre dossier est complet', ['email']);
         $traineeNotification->content(
-            <<<EOM
+            <<<'EOM'
                 Votre demande de remboursement de formation est complète. Nous allons l'examiner dans les plus brefs délais.
                 En cas de question, n'hésitez pas à nous contacter.
             EOM,
@@ -62,7 +57,7 @@ final readonly class TrainingReimbursementListener
             <<<EOM
                 Un nouveau dossier de remboursement de formation a été créé. Vous pouvez le consulter sur ce lien:
                 
-                $showLink
+                {$showLink}
             EOM,
         );
         $adminNotification->importance('');
@@ -70,7 +65,6 @@ final readonly class TrainingReimbursementListener
     }
 
     /**
-     * @param TrainingReimbursement $trainingReimbursement
      * @return Recipient
      */
     private function sendTrainingReimbursementEmail(TrainingReimbursement $trainingReimbursement): void
@@ -85,7 +79,7 @@ final readonly class TrainingReimbursementListener
             <<<EOM
             Votre demande de remboursement de formation a bien été reçue. Vous pouvez l'éditer à tout moment sur ce lien:
             
-            $link
+            {$link}
             
             En cas de question, n'hésitez pas à nous contacter.
         EOM,
@@ -108,7 +102,7 @@ final readonly class TrainingReimbursementListener
             <<<EOM
             Votre demande de remboursement de formation a bien été mise à jour. Vous pouvez l'éditer à tout moment sur ce lien:
             
-            $link
+            {$link}
             
             En cas de question, n'hésitez pas à nous contacter.
         EOM,
