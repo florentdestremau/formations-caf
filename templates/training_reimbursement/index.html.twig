@@ -7,19 +7,57 @@
         Retour à l'accueil
     </a>
     <h1>TrainingReimbursement index</h1>
-    <section class="">
-        {% for training_reimbursement in training_reimbursements %}
-            {{ include('training_reimbursement/_show.html.twig') }}
-        {% else %}
-            <div>
-                Aucun dossier de remboursement n'a été créé.
-            </div>
-        {% endfor %}
+    <section>
+        <nav class="nav tabs">
+            {% set current_status = app.request.query.get('status') %}
+            {% for status in ['draft', 'complete', 'approved', 'processing', 'finished' ] %}
+                <a href="{{ url('app_training_reimbursement_index', { status}) }}"
+                   class="{{ current_status == status ? 'active' }}">
+                    {{ status }} ({{ training_reimbursements|filter(tr => tr.status == status)|length }})
+                </a>
+            {% endfor %}
+        </nav>
+    </section>
+    <section>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Statut</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th></th>
+            </thead>
+            <tbody>
+            {% for training_reimbursement in training_reimbursements|filter(tr => not current_status or tr.status == current_status ) %}
+                <tr>
+                    <td>{{ training_reimbursement.id }}</td>
+                    <td>{{ training_reimbursement.status }}</td>
+                    <td>{{ training_reimbursement.trainee }}</td>
+                    <td>{{ training_reimbursement.traineeEmail }}</td>
+                    <td>
+                        <a href="{{ path('app_training_reimbursement_show', {token: training_reimbursement.token}) }}">
+                            Voir
+                        </a>
+                    </td>
+                </tr>
+                {#            {{ include('training_reimbursement/_show.html.twig') }} #}
+            {% else %}
+                <tr>
+                    <td colspan="100">
+                        <em>Aucun dossier de remboursement n'a été trouvé.</em>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
     </section>
 
 
     <section>
-        <a href="{{ path('app_training_reimbursement_new') }}" class="button primary">Créer un nouveau dossier de remboursement</a>
+        <a href="{{ path('app_training_reimbursement_new') }}" class="button primary">
+            Créer un nouveau dossier de remboursement
+        </a>
     </section>
 {% endblock %}

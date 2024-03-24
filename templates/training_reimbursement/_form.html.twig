@@ -3,8 +3,12 @@
     <div>
         {{ form_widget(form) }}
     </div>
-    <footer class="is-right" style="margin-top: 1rem;">
-        <a href="{{ path('app_home') }}">annuler</a>  
+    <footer class="is-right nav" style="margin-top: 1rem;">
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('app_training_reimbursement_index') }}">retour à la liste</a>
+        {% else %}
+            <a href="{{ path('app_home') }}">annuler</a>
+        {% endif %}
         <button class="button primary">{{ button_label|default('Créer un dossier') }}</button>
     </footer>
     {{ form_end(form) }}

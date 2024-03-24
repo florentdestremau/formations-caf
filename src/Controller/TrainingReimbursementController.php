@@ -17,12 +17,10 @@ class TrainingReimbursementController extends AbstractController
 {
     #[Route('', name: 'app_training_reimbursement_index', methods: ['GET'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function index(Request $request, TrainingReimbursementRepository $trainingReimbursementRepository): Response
+    public function index(TrainingReimbursementRepository $trainingReimbursementRepository): Response
     {
-        $args = $request->query->get('status') ? ['status' => $request->query->get('status')] : [];
-
         return $this->render('training_reimbursement/index.html.twig', [
-            'training_reimbursements' => $trainingReimbursementRepository->findBy($args, ['createdAt' => 'DESC']),
+            'training_reimbursements' => $trainingReimbursementRepository->findAll(),
         ]);
     }
 
