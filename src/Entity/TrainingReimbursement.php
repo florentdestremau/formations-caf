@@ -55,6 +55,12 @@ class TrainingReimbursement
     #[ORM\Column]
     public \DateTimeImmutable $updatedAt;
 
+    #[ORM\Column(length: 255)]
+    public ?string $licenseNumber = null;
+
+    #[ORM\Column(length: 255)]
+    public ?string $status = 'draft';
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();

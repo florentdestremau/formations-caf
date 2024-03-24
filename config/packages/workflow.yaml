@@ -1,0 +1,29 @@
+framework:
+    workflows:
+        training_reimbursement:
+            type: state_machine
+            marking_store:
+                type: method
+                property: status
+            supports:
+                - App\Entity\TrainingReimbursement
+            initial_marking: [draft]
+            places:
+                - draft
+                - complete
+                - approved
+                - processing
+                - finished
+            transitions:
+                complete:
+                    from: draft
+                    to: complete
+                approve:
+                    from: complete
+                    to: approved
+                process:
+                    from: approved
+                    to: processing
+                finish:
+                    from: processing
+                    to: finished

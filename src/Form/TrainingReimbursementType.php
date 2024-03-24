@@ -13,8 +13,9 @@ class TrainingReimbursementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('trainee', null, ['label' => 'Nom de l\'apprenti'])
-            ->add('traineeEmail', null, ['label' => 'Email de l\'apprenti'])
+            ->add('trainee', null, ['label' => 'Nom'])
+            ->add('traineeEmail', null, ['label' => 'Email'])
+            ->add('licenseNumber', null, ['label' => 'Numéro de license'])
             ->add(
                 'trainingCompletionCertificateFile',
                 VichFileType::class,
