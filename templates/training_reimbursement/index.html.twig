@@ -26,6 +26,8 @@
                 <th>Statut</th>
                 <th>Nom</th>
                 <th>Email</th>
+                <th>Activité</th>
+                <th>Montant</th>
                 <th></th>
             </thead>
             <tbody>
@@ -35,6 +37,8 @@
                     <td>{{ training_reimbursement.status }}</td>
                     <td>{{ training_reimbursement.trainee }}</td>
                     <td>{{ training_reimbursement.traineeEmail }}</td>
+                    <td>{{ training_reimbursement.activity }}</td>
+                    <td>{{ (training_reimbursement.amount/100) }} €</td>
                     <td>
                         <a href="{{ path('app_training_reimbursement_show', {token: training_reimbursement.token}) }}">
                             Voir

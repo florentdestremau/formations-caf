@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\TrainingReimbursement;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichFileType;
@@ -16,6 +18,18 @@ class TrainingReimbursementType extends AbstractType
             ->add('trainee', null, ['label' => 'Nom'])
             ->add('traineeEmail', null, ['label' => 'Email'])
             ->add('licenseNumber', null, ['label' => 'Numéro de license'])
+            ->add(
+                'amount',
+                MoneyType::class,
+                ['label' => 'Montant des frais de formation (€)', 'currency' => 'EUR', 'divisor' => 100],
+            )
+            ->add('activity', ChoiceType::class, [
+                'label' => 'Activité',
+                'choices' => [
+                    'Snowboard' => 'Snowboard',
+                    'Ski de randonnée' => 'Ski de randonnée',
+                ],
+            ])
             ->add(
                 'trainingCompletionCertificateFile',
                 VichFileType::class,

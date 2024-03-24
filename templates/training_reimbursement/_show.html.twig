@@ -5,6 +5,18 @@
     <table>
         <tbody>
         <tr>
+            <td>Statut</td>
+            <td>{{ training_reimbursement.status }}</td>
+        </tr>
+        <tr>
+            <td>Montant</td>
+            <td>{{ training_reimbursement.amount/100 }} €</td>
+        </tr>
+        <tr>
+            <td>Activité</td>
+            <td>{{ training_reimbursement.activity }}</td>
+        </tr>
+        <tr>
             <td>Attestation de réussite :</td>
             <td>
                 {% if training_reimbursement.trainingCompletionCertificate %}
@@ -60,7 +72,8 @@
     </table>
     <footer class="is-right">
         {% if app.current_route != 'app_training_reimbursement_show' %}
-            <a href="{{ path('app_training_reimbursement_show', {'token': training_reimbursement.token}) }}" class="button primary">voir</a>
+            <a href="{{ path('app_training_reimbursement_show', {'token': training_reimbursement.token}) }}"
+               class="button primary">voir</a>
         {% endif %}
         <a href="{{ path('app_training_reimbursement_edit', {'token': training_reimbursement.token}) }}" class="button">éditer</a>
     </footer>

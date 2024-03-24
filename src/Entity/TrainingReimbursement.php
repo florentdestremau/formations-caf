@@ -61,6 +61,15 @@ class TrainingReimbursement
     #[ORM\Column(length: 255)]
     public ?string $status = 'draft';
 
+    #[ORM\Column]
+    public ?int $amount = null;
+
+    #[ORM\Column]
+    public ?int $paidAmount = 0;
+
+    #[ORM\Column(length: 255)]
+    public ?string $activity = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
