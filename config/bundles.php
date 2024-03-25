@@ -2,6 +2,7 @@
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
+use EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle;
 use Symfony\Bundle\DebugBundle\DebugBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\MakerBundle\MakerBundle;
@@ -28,4 +29,5 @@ return [
     MonologBundle::class => ['all' => true],
     MakerBundle::class => ['dev' => true],
     VichUploaderBundle::class => ['all' => true],
+    EasyAdminBundle::class => ['all' => true],
 ];
