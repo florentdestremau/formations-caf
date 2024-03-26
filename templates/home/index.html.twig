@@ -29,11 +29,11 @@
     </section>
 
     <section>
-        <a href="{{ path('app_training_reimbursement_new') }}" class="button primary">
+        <a href="{{ path('app_training_reimbursement_new') }}" class="btn btn-primary">
             Commencer une demande de remboursement
         </a>
         {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('app_training_reimbursement_index') }}" class="button secondary">
+            <a href="{{ path('app_training_reimbursement_index') }}" class="btn btn-outline-secondary">
                 Voir les demandes de remboursement en cours
             </a>
         {% endif %}

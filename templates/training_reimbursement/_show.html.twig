@@ -1,4 +1,4 @@
-<article class="card">
+<article class="card card-body">
     <header>
         <h3>{{ training_reimbursement.id }} - {{ training_reimbursement.trainee }}</h3>
     </header>
@@ -73,8 +73,8 @@
     <footer class="is-right">
         {% if app.current_route != 'app_training_reimbursement_show' %}
             <a href="{{ path('app_training_reimbursement_show', {'token': training_reimbursement.token}) }}"
-               class="button primary">voir</a>
+               class="btn btn-primary">voir</a>
         {% endif %}
-        <a href="{{ path('app_training_reimbursement_edit', {'token': training_reimbursement.token}) }}" class="button">éditer</a>
+        <a href="{{ path('app_training_reimbursement_edit', {'token': training_reimbursement.token}) }}" class="btn btn-outline-info">éditer</a>
     </footer>
 </article>

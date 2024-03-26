@@ -25,8 +25,8 @@ return [
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
-    'chota/dist/chota.min.css' => [
-        'version' => '0.9.2',
+    'bootstrap/dist/css/bootstrap.min.css' => [
+        'version' => '5.3.3',
         'type' => 'css',
     ],
 ];

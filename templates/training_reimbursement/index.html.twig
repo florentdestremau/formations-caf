@@ -6,20 +6,21 @@
     <a href="{{ path('app_home') }}">
         Retour à l'accueil
     </a>
-    <h1>TrainingReimbursement index</h1>
+    <h1>Liste des </h1>
     <section>
-        <nav class="nav tabs">
+        <div class="nav nav-tabs">
             {% set current_status = app.request.query.get('status') %}
             {% for status in ['draft', 'complete', 'approved', 'processing', 'finished' ] %}
-                <a href="{{ url('app_training_reimbursement_index', { status}) }}"
-                   class="{{ current_status == status ? 'active' }}">
-                    {{ status }} ({{ training_reimbursements|filter(tr => tr.status == status)|length }})
+                {% set count = training_reimbursements|filter(tr => tr.status == status)|length %}
+                <a class="nav-link {{ current_status == status ? 'active' }} {{ count == 0 ? 'disabled' }}"
+                   href="{{ url('app_training_reimbursement_index', { status}) }}">
+                    {{ status }} ({{ count }})
                 </a>
             {% endfor %}
-        </nav>
+        </div>
     </section>
     <section>
-        <table>
+        <table class="table">
             <thead>
             <tr>
                 <th>Id</th>

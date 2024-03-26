@@ -1,15 +1,15 @@
-<div class="card">
+<div class="card card-body">
     {{ form_start(form) }}
     <div>
         {{ form_widget(form) }}
     </div>
-    <footer class="is-right nav" style="margin-top: 1rem;">
+    <div class="pull-right d-inline">
         {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('app_training_reimbursement_index') }}">retour à la liste</a>
+            <a class="btn btn-link" href="{{ path('app_training_reimbursement_index') }}">retour à la liste</a>
         {% else %}
-            <a href="{{ path('app_home') }}">annuler</a>
+            <a class="btn btn-link" href="{{ path('app_home') }}">annuler</a>
         {% endif %}
-        <button class="button primary">{{ button_label|default('Créer un dossier') }}</button>
-    </footer>
+        <button class="btn btn-primary">{{ button_label|default('Créer un dossier') }}</button>
+    </div>
     {{ form_end(form) }}
 </div>
